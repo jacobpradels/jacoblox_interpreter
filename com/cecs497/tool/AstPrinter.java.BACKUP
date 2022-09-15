@@ -1,4 +1,14 @@
-package com.cecs497.lox;
+package com.cecs497.tool;
+
+
+import com.cecs497.lox.Expr;
+import com.cecs497.lox.Token;
+import com.cecs497.lox.TokenType;
+import com.cecs497.lox.Expr.Binary;
+import com.cecs497.lox.Expr.Grouping;
+import com.cecs497.lox.Expr.Literal;
+import com.cecs497.lox.Expr.Unary;
+import com.cecs497.lox.Expr.Visitor;
 
 public class AstPrinter implements Expr.Visitor<String> {
     String print(Expr expr) {
