@@ -1,5 +1,5 @@
 //> Classes lox-class
-package com.craftinginterpreters.lox;
+package com.cecs497.lox;
 
 import java.util.List;
 import java.util.Map;

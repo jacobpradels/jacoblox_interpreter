@@ -1,5 +1,5 @@
 //> Resolving and Binding resolver
-package com.craftinginterpreters.lox;
+package com.cecs497.lox;
 
 import java.util.HashMap;
 import java.util.List;

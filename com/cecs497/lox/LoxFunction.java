@@ -1,5 +1,5 @@
 //> Functions lox-function
-package com.craftinginterpreters.lox;
+package com.cecs497.lox;
 
 import java.util.List;
 

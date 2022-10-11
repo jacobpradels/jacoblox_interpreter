@@ -1,5 +1,5 @@
 //> Statements and State environment-class
-package com.craftinginterpreters.lox;
+package com.cecs497.lox;
 
 import java.util.HashMap;
 import java.util.Map;

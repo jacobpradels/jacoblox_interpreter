@@ -1,5 +1,5 @@
 //> Scanning lox-class
-package com.craftinginterpreters.lox;
+package com.cecs497.lox;
 
 import java.io.BufferedReader;
 import java.io.IOException;

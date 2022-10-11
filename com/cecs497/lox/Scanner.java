@@ -1,12 +1,12 @@
 //> Scanning scanner-class
-package com.craftinginterpreters.lox;
+package com.cecs497.lox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.craftinginterpreters.lox.TokenType.*; // [static-import]
+import static com.cecs497.lox.TokenType.*; // [static-import]
 
 class Scanner {
 //> keyword-map

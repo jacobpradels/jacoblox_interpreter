@@ -1,5 +1,5 @@
 //> Evaluating Expressions interpreter-class
-package com.craftinginterpreters.lox;
+package com.cecs497.lox;
 //> Statements and State import-list
 
 //> Functions import-array-list

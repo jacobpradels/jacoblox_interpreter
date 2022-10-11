@@ -1,5 +1,5 @@
 //> Representing Code generate-ast
-package com.craftinginterpreters.tool;
+package com.cecs497.tool;
 
 import java.io.IOException;
 import java.io.PrintWriter;
