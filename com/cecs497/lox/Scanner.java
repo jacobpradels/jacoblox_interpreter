@@ -169,17 +169,10 @@ class Scanner {
   private void lox_file(String name) throws IOException {
     byte[] bytes = Files.readAllBytes(Paths.get(name));
     String file_contents = new String(bytes, Charset.defaultCharset());
-    // System.out.println(current);
     String before = this.source.substring(0,current);
-    // System.out.println("---new.lox---");
-    // System.out.println(before);
     String after = this.source.substring(current,this.source.length());
-    // System.out.println("---new.lox---");
-    // System.out.println(after);
-    // System.out.println(file_contents);
     String newLine = System.getProperty("line.separator");
     this.source = String.join(newLine,before,file_contents,after);
-    System.out.println(this.source);
   }
 
   private void number() {
