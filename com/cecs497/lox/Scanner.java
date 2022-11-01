@@ -1,6 +1,10 @@
 //> Scanning scanner-class
 package com.cecs497.lox;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,9 +34,10 @@ class Scanner {
     keywords.put("true",   TRUE);
     keywords.put("var",    VAR);
     keywords.put("while",  WHILE);
+    keywords.put("import", IMPORT);
   }
 //< keyword-map
-  private final String source;
+  private String source;
   private final List<Token> tokens = new ArrayList<>();
 //> scan-state
   private int start = 0;
@@ -142,11 +147,41 @@ class Scanner {
     String text = source.substring(start, current);
     TokenType type = keywords.get(text);
     if (type == null) type = IDENTIFIER;
+    if (type == IMPORT) {
+      advance();
+      String name = "";
+      while (isAlphaNumeric(peek())) name += advance();
+      if (peek() == '.' && isAlphaNumeric(peekNext())) {
+        name += advance();
+        while (isAlphaNumeric(peek())) name += advance();
+      }
+      try {
+        advance();
+        lox_file(name);
+      } catch (IOException e) {
+        System.out.printf("Invalid import path %s\n",name);
+      }
+      return;
+    }
     addToken(type);
-//< keyword-type
   }
-//< identifier
-//> number
+
+  private void lox_file(String name) throws IOException {
+    byte[] bytes = Files.readAllBytes(Paths.get(name));
+    String file_contents = new String(bytes, Charset.defaultCharset());
+    // System.out.println(current);
+    String before = this.source.substring(0,current);
+    // System.out.println("---new.lox---");
+    // System.out.println(before);
+    String after = this.source.substring(current,this.source.length());
+    // System.out.println("---new.lox---");
+    // System.out.println(after);
+    // System.out.println(file_contents);
+    String newLine = System.getProperty("line.separator");
+    this.source = String.join(newLine,before,file_contents,after);
+    System.out.println(this.source);
+  }
+
   private void number() {
     while (isDigit(peek())) advance();
 
