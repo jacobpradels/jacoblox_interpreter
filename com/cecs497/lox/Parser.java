@@ -35,12 +35,7 @@ class Parser {
   List<Stmt> parse() {
     List<Stmt> statements = new ArrayList<>();
     while (!isAtEnd()) {
-/* Statements and State parse < Statements and State parse-declaration
-      statements.add(statement());
-*/
-//> parse-declaration
       statements.add(declaration());
-//< parse-declaration
     }
 
     return statements; // [parse-error-handling]
@@ -48,15 +43,8 @@ class Parser {
 //< Statements and State parse
 //> expression
   private Expr expression() {
-/* Parsing Expressions expression < Statements and State expression
-    return equality();
-*/
-//> Statements and State expression
     return assignment();
-//< Statements and State expression
   }
-//< expression
-//> Statements and State declaration
   private Stmt declaration() {
     try {
 //> Classes match-class
@@ -459,6 +447,11 @@ class Parser {
 
     if (match(NUMBER, STRING)) {
       return new Expr.Literal(previous().literal);
+    }
+    if (match(INPUT)) {
+      String prompt = ">";
+      Object o = prompt;
+      return new Expr.Input(o);
     }
 //> Inheritance parse-super
 

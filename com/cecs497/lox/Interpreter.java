@@ -468,6 +468,19 @@ class Interpreter implements Expr.Visitor<Object>,
     return null;
   }
 
+  @Override
+  public Object visitInputExpr(Expr.Input expr) {
+    java.util.Scanner in = new java.util.Scanner(System.in);
+    String val = in.nextLine();
+    try {
+      Double num = Double.parseDouble(val);
+      return num;
+    } catch (NumberFormatException e)
+    {
+      return val;
+    }
+  }
+
 
   @Override
   public Object visitVariableExpr(Expr.Variable expr) {

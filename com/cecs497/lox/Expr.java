@@ -17,6 +17,7 @@ abstract class Expr {
     R visitThisExpr(This expr);
     R visitUnaryExpr(Unary expr);
     R visitVariableExpr(Variable expr);
+    R visitInputExpr(Input expr);
   }
 
   // Nested Expr classes here...
@@ -212,6 +213,20 @@ abstract class Expr {
     final Token name;
   }
 //< expr-variable
+//> expr-input
+  static class Input extends Expr {
+    Input(Object message) {
+      this.message = message;
+    }
+
+    @Override
+    <R> R accept(Visitor<R> visitor) {
+      return visitor.visitInputExpr(this);
+    }
+
+    final Object message;
+  }
+//< expr-input
 
   abstract <R> R accept(Visitor<R> visitor);
 }
