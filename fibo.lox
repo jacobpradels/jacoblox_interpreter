@@ -1,0 +1,23 @@
+import Array.lox
+
+var values = Array(0);
+values.append(1);
+
+fun fibo(n) {
+    var memory = values.get(n);
+    if (memory) {
+        return memory;
+    } else {
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1 or n == 2) {
+            return 1;
+        } else {
+            var val = fibo(n-1) + fibo(n-2);
+            values.append()
+        }
+    }
+}
+
+println(fibo(10));
