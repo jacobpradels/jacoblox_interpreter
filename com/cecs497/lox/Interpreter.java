@@ -207,7 +207,7 @@ class Interpreter implements Expr.Visitor<Object>,
   @Override
   public Void visitPrintStmt(Stmt.Print stmt) {
     Object value = evaluate(stmt.expression);
-    System.out.println(stringify(value));
+    System.out.print(stringify(value));
     return null;
   }
 
@@ -307,6 +307,12 @@ class Interpreter implements Expr.Visitor<Object>,
 
         if (left instanceof String && right instanceof String) {
           return (String)left + (String)right;
+        }
+        if (left instanceof String && right instanceof Double) {
+          return (String)left + right.toString();
+        }
+        if (left instanceof Double && right instanceof String) {
+          return left.toString() + (String)right;
         }
 
 /* Evaluating Expressions binary-plus < Evaluating Expressions string-wrong-type
@@ -542,7 +548,11 @@ class Interpreter implements Expr.Visitor<Object>,
       }
       return text;
     }
-
+    if (object instanceof String) {
+      String string_object = (String)object;
+      String formatted_string = string_object.replace("\\n","\n");
+      return formatted_string;
+    }
     return object.toString();
   }
 
