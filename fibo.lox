@@ -1,0 +1,7 @@
+import Array.lox
+
+var values = Array(0);
+values.append(1);
+
+values.append("HI");
+println(values);

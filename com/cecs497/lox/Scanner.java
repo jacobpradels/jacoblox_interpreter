@@ -9,13 +9,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import static com.cecs497.lox.TokenType.*; // [static-import]
+
+class LinePosition {
+  private String filename;
+  private int line;
+  LinePosition(String filename, int line) {
+    this.filename = filename;
+    this.line = line;
+  }
+  
+  public int getLine() {
+    return this.line;
+  }
+  public void setLine(int line) {
+    this.line = line;
+  }
+  public String getFilename() {
+    return this.filename;
+  }
+  public void setFilename(String filename) {
+    this.filename = filename;
+  }
+}
 
 class Scanner {
 //> keyword-map
   private static final Map<String, TokenType> keywords;
-
+  private static Stack<LinePosition> line_counter = new Stack<>();
   static {
     keywords = new HashMap<>();
     keywords.put("and",    AND);
@@ -36,15 +59,14 @@ class Scanner {
     keywords.put("while",  WHILE);
     keywords.put("import", IMPORT);
     keywords.put("input",INPUT);
+    line_counter.push(new LinePosition("Main",0));
   }
-//< keyword-map
   private String source;
   private final List<Token> tokens = new ArrayList<>();
-//> scan-state
   private int start = 0;
   private int current = 0;
-  private int line = 1;
-//< scan-state
+  private int line = line_counter.peek().getLine();
+  private String filename = line_counter.peek().getFilename();
 
   Scanner(String source) {
     this.source = source;
@@ -57,7 +79,7 @@ class Scanner {
       scanToken();
     }
 
-    tokens.add(new Token(EOF, "", null, line));
+    tokens.add(new Token(EOF, "", null, line,filename));
     return tokens;
   }
 //< scan-tokens
@@ -114,6 +136,12 @@ class Scanner {
 //> string-start
 
       case '"': string(); break;
+      case '`':
+        advance();
+        line_counter.pop();
+        line = line_counter.peek().getLine();
+        filename = line_counter.peek().getFilename();
+        break;
 //< string-start
 //> char-error
 
@@ -168,8 +196,16 @@ class Scanner {
   }
 
   private void lox_file(String name) throws IOException {
+    // Store most recent line
+    line_counter.peek().setLine(line);
+    LinePosition newPosition = new LinePosition(name, 0);
+    line_counter.push(newPosition);
+    line = line_counter.peek().getLine();
+    filename = line_counter.peek().getFilename();
+
     byte[] bytes = Files.readAllBytes(Paths.get(name));
     String file_contents = new String(bytes, Charset.defaultCharset());
+    file_contents = file_contents + "`";
     String before = this.source.substring(0,current);
     String after = this.source.substring(current,this.source.length());
     String newLine = System.getProperty("line.separator");
@@ -264,7 +300,7 @@ class Scanner {
 
   private void addToken(TokenType type, Object literal) {
     String text = source.substring(start, current);
-    tokens.add(new Token(type, text, literal, line));
+    tokens.add(new Token(type, text, literal, line,filename));
   }
 //< advance-and-add-token
 }

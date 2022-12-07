@@ -18,7 +18,14 @@ class ArrayNode {
 
 class Array {
     init(value) {
-        this.head = ArrayNode(nil,nil,value);
+        if (value)
+        {
+            this.head = ArrayNode(nil,nil,value);
+            this.StringRep = this.display();
+        } else {
+            this.head = nil;
+            this.StringRep = "[]";
+        }
         this.length = 1;
     }
 
@@ -35,14 +42,29 @@ class Array {
     }
 
     get(n) {
-        fun getNode(node, n) {
-            if (n == 0) {
-                return node.value;
+        var curr = this.head;
+        for (var x = 0; x < n; x = x + 1) {
+            if (curr.next != nil) {
+                curr = curr.next;
             } else {
-                return getNode(node.next, n-1);
+                return nil;
             }
         }
-        return getNode(this.head,n);
+        return curr.value;
+    }
+
+    get_first(n) {
+        var curr = this.head;
+        var counter = 0;
+        while (curr != nil) {
+            if (curr.value == n) {
+                return counter;
+            } else {
+                counter = counter + 1;
+                curr = curr.next;
+            }
+        }
+        return nil;
     }
 
     set(n,value) {
@@ -59,11 +81,17 @@ class Array {
     }
 
     append(value) {
-        var curr = this.head;
-        while (curr.next != nil) {
-            curr = curr.next;
+        // Empty list case.
+        if (this.head == nil) {
+            this.head = ArrayNode(nil,nil,value);
+        // Non-empty list case.
+        } else {
+            var curr = this.head;
+            while (curr.next != nil) {
+                curr = curr.next;
+            }
+            curr.next = ArrayNode(curr,nil,value);
         }
-        curr.next = ArrayNode(curr,nil,value);
         this.StringRep = this.display();
     }
 }
