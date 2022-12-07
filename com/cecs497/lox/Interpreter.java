@@ -36,19 +36,12 @@ class Interpreter implements Expr.Visitor<Object>,
 
 
   Interpreter() {
-    globals.define("clock", new LoxCallable() {
-      @Override
-      public int arity() { return 0; }
+    globals.define("clock", new Clock());
 
-      @Override
-      public Object call(Interpreter interpreter,
-                         List<Object> arguments) {
-        return (double)System.currentTimeMillis() / 1000.0;
-      }
-
-      @Override
-      public String toString() { return "<native fn>"; }
-    });
+    String[] TrigonometricFunctions = {"cos","sin","tan","acos","asin","atan"};
+    for (int i = 0; i < TrigonometricFunctions.length; i++) {
+      globals.define(TrigonometricFunctions[i],new Trig(i));
+    }
   }
   
 

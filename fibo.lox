@@ -5,3 +5,13 @@ values.append(1);
 
 values.append("HI");
 println(values);
+
+var start = clock();
+
+for (var x = 0; x < 100; x = x + 1) {
+    cos(10);
+}
+
+var end = clock();
+
+println(end-start);
