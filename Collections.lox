@@ -29,9 +29,3 @@ class Array < Collections {
         print "WARNING: Appending to full array.  Append failed. \n";
     }
 }
-
-var Arr = Array(10);
-for (var x = 0; x < 11; x = x + 1) {
-    Arr.append(1);
-}
-print(Arr.get(1));
