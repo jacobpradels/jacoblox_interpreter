@@ -43,7 +43,7 @@ class Interpreter implements Expr.Visitor<Object>,
       globals.define(TrigonometricFunctions[i],new Trig(i));
     }
     globals.define("mem", new Memory());
-
+    globals.define("stack_trace",0.0);
   }
   
 

@@ -1,0 +1,37 @@
+class Collections {
+    init(size) {
+        this.offset = stack_trace;
+        this.MemoryController = mem(this.offset,this.offset + size + 1);
+    }
+
+    get(location) {
+        return this.MemoryController("r",this.offset + location,nil);
+    }
+    
+    set(location,data) {
+        return this.MemoryController("w",this.offset + location,data);
+    }
+}
+
+class Array < Collections {
+    init(size) {
+        super.init(size);
+        this.size = size;
+    }
+
+    append(value) {
+        for (var x = 0; x < this.size; x = x + 1) {
+            if (this.get(x) == nil) {
+                this.set(x,value);
+                return;
+            }
+        }
+        print "WARNING: Appending to full array.  Append failed. \n";
+    }
+}
+
+var Arr = Array(10);
+for (var x = 0; x < 11; x = x + 1) {
+    Arr.append(1);
+}
+print(Arr.get(1));
