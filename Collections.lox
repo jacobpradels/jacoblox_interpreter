@@ -1,7 +1,7 @@
 class Collections {
     init(size) {
         this.offset = stack_trace;
-        this.MemoryController = mem(this.offset,this.offset + size + 1);
+        this.MemoryController = mem(this.offset,this.offset + size);
     }
 
     get(location) {
@@ -30,6 +30,11 @@ class Array < Collections {
         }
         print "WARNING: Appending to full array.  Append failed. \n";
     }
+    
+    set(location,data) {
+        super.set(location,data);
+        this.StringRep = this.display();
+    }
 
     display() {
         var final = "";
@@ -38,7 +43,7 @@ class Array < Collections {
             // final = final + 0 + ",";
             final = final + this.get(index) + ", ";
         }
-        final = final + this.get(this.size) + "]";
+        final = final + this.get(this.size - 1) + "]";
         return final;
     }
 

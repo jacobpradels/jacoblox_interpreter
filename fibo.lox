@@ -1,3 +1,36 @@
-var Memory = mem(0,2);
-Memory("w",1,15);
-print(Memory("r",1,0));
+import Collections.lox;
+import io.lox;
+
+var Memory = Array(100);
+Memory.set(0,0);
+Memory.set(1,1);
+Memory.set(2,1);
+
+fun fibo(n) {
+    if (Memory.get(n) != nil) {
+        return Memory.get(n);
+    } else {
+        var value = fibo(n-1) + fibo(n-2);
+        Memory.set(n,value);
+        return value;
+    }
+}
+
+fun fiboSlow(n) {
+    if (n == 0) {
+        return 0;
+    }
+    if (n == 1) {
+        return 1;
+    }
+    return fiboSlow(n-1) + fiboSlow(n-2);
+}
+var start = clock();
+println(fibo(99));
+var end = clock();
+println(end-start + " seconds");
+
+var start = clock();
+println(fiboSlow(30));
+var end = clock();
+println(end-start + " seconds");
