@@ -122,3 +122,33 @@ class MemoryController implements LoxCallable {
             throw new RuntimeError(t,message);
     }
 }
+
+class Random implements LoxCallable {
+
+    @Override
+    public int arity() {
+        return 2;
+    }
+
+    @Override
+    public Object call(Interpreter interpreter, List<Object> arguments) {
+        int min = (int)(double)arguments.get(0);
+        int max = (int)(double)arguments.get(1);
+        return Math.random() * (max - min + 1) + min;
+    }
+}
+
+class Round implements LoxCallable {
+
+    @Override
+    public int arity() {
+        // TODO Auto-generated method stub
+        return 1;
+    }
+
+    @Override
+    public Object call(Interpreter interpreter, List<Object> arguments) {
+        return (double)(int)(double)arguments.get(0);
+    }
+
+}

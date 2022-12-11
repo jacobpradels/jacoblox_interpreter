@@ -44,6 +44,8 @@ class Interpreter implements Expr.Visitor<Object>,
     }
     globals.define("mem", new Memory());
     globals.define("stack_trace",0.0);
+    globals.define("random", new Random());
+    globals.define("round", new Round());
   }
   
 
@@ -334,6 +336,12 @@ class Interpreter implements Expr.Visitor<Object>,
         checkNumberOperands(expr.operator, left, right);
 
         return (double)left * (double)right;
+      
+      case MODULUS:
+        
+        checkNumberOperands(expr.operator, left, right);
+
+        return (double)left % (double)right;
     }
 
     // Unreachable.
