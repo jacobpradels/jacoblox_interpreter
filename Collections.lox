@@ -17,15 +17,32 @@ class Array < Collections {
     init(size) {
         super.init(size);
         this.size = size;
+        this.StringRep = this.display();
     }
 
     append(value) {
         for (var x = 0; x < this.size; x = x + 1) {
             if (this.get(x) == nil) {
                 this.set(x,value);
+                this.StringRep = this.display();
                 return;
             }
         }
         print "WARNING: Appending to full array.  Append failed. \n";
     }
+
+    display() {
+        var final = "";
+        final = final + "[";
+        for (var index = 0; index < this.size - 1; index = index + 1) {
+            // final = final + 0 + ",";
+            final = final + this.get(index) + ", ";
+        }
+        final = final + this.get(this.size) + "]";
+        return final;
+    }
+
+    // TODO : SORT
+
+    // TODO : SLICE
 }

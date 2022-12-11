@@ -99,7 +99,12 @@ class MemoryController implements LoxCallable {
             if (location < this.start || location >= this.end) {
                 report("Segmentation fault. Invalid memory access in read mode.");
             }
-            return Memory.memory.get(location);
+            Object data = Memory.memory.get(location);
+            if (data instanceof Double) {
+                return (Double)data;
+            } else {
+                return (String)data;
+            }
         } else if (mode.equals("w")) {
             if (location < this.start || location >= this.end) {
                 report("Segmentation fault. Invalid memory access in write mode.");

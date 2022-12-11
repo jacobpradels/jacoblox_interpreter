@@ -296,6 +296,12 @@ class Interpreter implements Expr.Visitor<Object>,
         return (double)left - (double)right;
 
       case PLUS:
+        if (left == null) {
+          left = (String)"nil";
+        }
+        if (right == null) {
+          right = (String)"nil";
+        }
         if (left instanceof Double && right instanceof Double) {
           return (double)left + (double)right;
         } // [plus]
