@@ -42,6 +42,8 @@ class Interpreter implements Expr.Visitor<Object>,
     for (int i = 0; i < TrigonometricFunctions.length; i++) {
       globals.define(TrigonometricFunctions[i],new Trig(i));
     }
+    globals.define("mem", new Memory());
+
   }
   
 

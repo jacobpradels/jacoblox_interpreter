@@ -128,8 +128,12 @@ public class Lox {
 //< Parsing Expressions token-error
 //> Evaluating Expressions runtime-error-method
   static void runtimeError(RuntimeError error) {
-    System.err.println(error.getMessage() +
-        "\n[line " + error.token.line + "]");
+    if (error.token.type == TokenType.NATIVE) {
+      System.err.println("NATIVE FATAL ERROR: " + error.getMessage());
+    } else {
+      System.err.println(error.getMessage() +
+          "\n[line " + error.token.line + "]");
+    }
     hadRuntimeError = true;
   }
 //< Evaluating Expressions runtime-error-method

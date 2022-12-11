@@ -1,11 +1,3 @@
-import Array.lox
-
-
-class Pair {
-    init(key,value) {
-        this.key = key;
-        this.value = value;
-    }
-}
-
-var Memory = Array([])
+var Memory = mem(0,2);
+Memory("w",1,15);
+print(Memory("r",1,0));
