@@ -1,0 +1,27 @@
+import io.lox
+// fun decorate_person(cls) {
+//     println("Before creating class");
+//     var person = cls("Jacob",22);
+//     println(person);
+//     println("After creating class");
+// }
+
+// fun decorate_function(func) {
+//     println("Before calling function");
+//     func();
+//     println("After calling function");
+// }
+
+class Person {
+    init(name, age) { this.name = name; this.age = age; 
+        this.StringRep = "this is a person object";
+    } 
+}
+
+var jacob = Person("jacob",22);
+println(jacob);
+// fun main() {
+//     println("Hello world!");
+// }
+// decorate_person(Person);
+// decorate_function(main);
