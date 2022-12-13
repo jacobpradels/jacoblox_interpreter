@@ -36,19 +36,16 @@ class Interpreter implements Expr.Visitor<Object>,
 
 
   Interpreter() {
-    globals.define("clock", new LoxCallable() {
-      @Override
-      public int arity() { return 0; }
+    globals.define("clock", new Clock());
 
-      @Override
-      public Object call(Interpreter interpreter,
-                         List<Object> arguments) {
-        return (double)System.currentTimeMillis() / 1000.0;
-      }
-
-      @Override
-      public String toString() { return "<native fn>"; }
-    });
+    String[] TrigonometricFunctions = {"cos","sin","tan","acos","asin","atan"};
+    for (int i = 0; i < TrigonometricFunctions.length; i++) {
+      globals.define(TrigonometricFunctions[i],new Trig(i));
+    }
+    globals.define("mem", new Memory());
+    globals.define("stack_trace",0.0);
+    globals.define("random", new Random());
+    globals.define("round", new Round());
   }
   
 
@@ -301,6 +298,12 @@ class Interpreter implements Expr.Visitor<Object>,
         return (double)left - (double)right;
 
       case PLUS:
+        if (left == null) {
+          left = (String)"nil";
+        }
+        if (right == null) {
+          right = (String)"nil";
+        }
         if (left instanceof Double && right instanceof Double) {
           return (double)left + (double)right;
         } // [plus]
@@ -333,6 +336,12 @@ class Interpreter implements Expr.Visitor<Object>,
         checkNumberOperands(expr.operator, left, right);
 
         return (double)left * (double)right;
+      
+      case MODULUS:
+        
+        checkNumberOperands(expr.operator, left, right);
+
+        return (double)left % (double)right;
     }
 
     // Unreachable.

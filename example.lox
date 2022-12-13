@@ -1,0 +1,3 @@
+import io.lox
+println(cos(15));
+input;

@@ -95,3 +95,16 @@ class Array {
         this.StringRep = this.display();
     }
 }
+
+class Dictionary {
+    class DictionaryItem {
+        init(key,value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+    init(key,value) {
+        
+    }
+}

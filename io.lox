@@ -1,0 +1,8 @@
+fun println(in) {
+    print in;
+    print "\n";
+}
+
+fun printr(in) {
+    print in;
+}
